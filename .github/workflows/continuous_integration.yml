@@ -10,9 +10,15 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - name: "macOS"
+          - name: "macOS arm64"
             os: macos-latest
             package_name: "mac_arm64"
+            artifact-path: build/*.zip
+            deps_cmdline: "brew install fluidsynth freeimage ftgl lua mpg123 sfml wxwidgets dylibbundler"
+            
+          - name: "macOS x64"
+            os: macos-13
+            package_name: "mac_x64"
             artifact-path: build/*.zip
             deps_cmdline: "brew install fluidsynth freeimage ftgl lua mpg123 sfml wxwidgets dylibbundler"
 
@@ -60,7 +66,7 @@ jobs:
       shell: bash
       run: |
         cd build
-        dylibbundler -od -b -x slade.app/Contents/MacOS/slade -d slade.app/Contents/MacOS/libs_arm64 -p @executable_path/libs_arm64
+        dylibbundler -od -b -x slade.app/Contents/MacOS/slade -d slade.app/Contents/MacOS/libs -p @executable_path/libs
         zip -r slade.zip slade.app
 
     - name: Upload Artifacts
