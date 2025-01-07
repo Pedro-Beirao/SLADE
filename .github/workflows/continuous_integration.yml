@@ -39,6 +39,7 @@ jobs:
             shell: "msys2 {0}"
             msystem: ucrt64
             msys-env: mingw-w64-ucrt-x86_64
+            extra-options: "$(wx-config --cppflags)"
             package_name: "win_x64"
             artifact-path: build/*.zip
 
