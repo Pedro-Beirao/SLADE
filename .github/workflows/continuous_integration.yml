@@ -68,13 +68,11 @@ jobs:
           zip
 
     - name: Configure
-      shell: bash
       run: |
         mkdir build
         cmake -B build ${{ matrix.config.extra_options }} .
 
     - name: Build
-      shell: bash
       run: |
         export MAKEFLAGS=--keep-going
         cmake --build build --parallel 3
