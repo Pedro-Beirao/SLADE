@@ -64,7 +64,7 @@ jobs:
           ${{ matrix.config.msys-env }}-lua
           ${{ matrix.config.msys-env }}-mpg123
           ${{ matrix.config.msys-env }}-sfml
-          ${{ matrix.config.msys-env }}-wxwidgets3.2
+          ${{ matrix.config.msys-env }}-wxWidgets
           zip
 
     - name: Configure
