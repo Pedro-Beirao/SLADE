@@ -15,19 +15,23 @@ jobs:
         config:
           - name: "macOS arm64"
             os: macos-latest
+            shell: bash
             package_name: "mac_arm64"
             artifact-path: build/*.zip
             
           - name: "macOS x64"
             os: macos-13
+            shell: bash
             package_name: "mac_x64"
             artifact-path: build/*.zip
 
           - name: "Linux GCC"
             os: ubuntu-24.04
+            shell: bash
 
           - name: "Linux Clang"
             os: ubuntu-24.04
+            shell: bash
             extra_options: "-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++"
 
           - name: "Windows MSYS2"
@@ -43,12 +47,10 @@ jobs:
 
     - name: Install Dependencies (macOS)
       if: runner.os == 'macOS'
-      shell: bash
       run: brew install fluidsynth freeimage ftgl lua mpg123 sfml wxwidgets dylibbundler
 
     - name: Install Dependencies (Linux)
       if: runner.os == 'Linux'
-      shell: bash
       run: |
         sudo apt install \
         libfluidsynth-dev libfreeimage-dev libwebkit2gtk-4.1-dev \
@@ -69,7 +71,7 @@ jobs:
           ${{ matrix.config.msys-env }}-lua
           ${{ matrix.config.msys-env }}-mpg123
           ${{ matrix.config.msys-env }}-sfml
-          ${{ matrix.config.msys-env }}-wxWidgets
+          ${{ matrix.config.msys-env }}-wxwidgets3.2-msw
           zip
 
     - name: Configure
@@ -84,7 +86,6 @@ jobs:
 
     - name: Package (macOS)
       if: runner.os == 'macOS'
-      shell: bash
       run: |
         cd build
         dylibbundler -od -b -x slade.app/Contents/MacOS/slade -d slade.app/Contents/MacOS/libs -p @executable_path/libs
