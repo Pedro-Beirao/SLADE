@@ -58,6 +58,8 @@ jobs:
       with:
         msystem: ${{ matrix.config.msystem }}
         install: >-
+          ${{ matrix.config.msys-env }}-gcc
+          ${{ matrix.config.msys-env }}-cmake
           ${{ matrix.config.msys-env }}-fluidsynth
           ${{ matrix.config.msys-env }}-freeimage
           ${{ matrix.config.msys-env }}-ftgl
