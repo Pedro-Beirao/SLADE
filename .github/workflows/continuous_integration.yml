@@ -17,13 +17,13 @@ jobs:
             os: macos-latest
             shell: bash
             package_name: "mac_arm64"
-            artifact-path: build/*.zip
+            artifact-path: build/*.dmg
             
           - name: "macOS x64"
             os: macos-13
             shell: bash
             package_name: "mac_x64"
-            artifact-path: build/*.zip
+            artifact-path: build/*.dmg
 
           - name: "Linux GCC"
             os: ubuntu-24.04
@@ -39,7 +39,7 @@ jobs:
 
     - name: Install Dependencies (macOS)
       if: runner.os == 'macOS'
-      run: brew install fluidsynth freeimage ftgl lua mpg123 sfml wxwidgets dylibbundler
+      run: brew install fluidsynth freeimage ftgl lua mpg123 sfml wxwidgets dylibbundler create-dmg
 
     - name: Install Dependencies (Linux)
       if: runner.os == 'Linux'
@@ -64,12 +64,7 @@ jobs:
       run: |
         cd build
         dylibbundler -od -b -x slade.app/Contents/MacOS/slade -d slade.app/Contents/MacOS/libs -p @executable_path/libs
-        zip -r slade.zip slade.app
-
-    - name: Package (MSYS2)
-      if: matrix.config.shell == 'msys2 {0}'
-      run: |
-        zip -r slade.zip build
+        create-dmg --app-drop-link 10 10 ./slade.dmg ./slade.app
 
     - name: Upload Artifacts
       if: ${{ matrix.config.package_name }}
