@@ -68,7 +68,7 @@ jobs:
       run: |
         cd build
         dylibbundler -od -b -x slade.app/Contents/MacOS/slade -d slade.app/Contents/MacOS/libs -p @executable_path/libs
-        create-dmg --app-drop-link 10 10 ./slade.dmg ./slade.app
+        create-dmg --app-drop-link 10 10 ./slade_${{ matrix.config.package_name }}_${{ github.ref_name }}.dmg ./slade.app
 
     - name: Upload Artifacts
       if: ${{ matrix.config.package_name }}
