@@ -15,12 +15,14 @@ jobs:
         config:
           - name: "macOS arm64"
             os: macos-latest
+            release: true
             shell: bash
             package_name: "mac_arm64"
             artifact-path: build/*.dmg
             
           - name: "macOS x64"
             os: macos-13
+            release: true
             shell: bash
             package_name: "mac_x64"
             artifact-path: build/*.dmg
